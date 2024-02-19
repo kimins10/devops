@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-     yum install httpd wget unzip vim -y
+     yum install httpd wget unzip vim -y # 
      systemctl start httpd
      systemctl enabled httpd
      mkdir -p /tmp/finance
