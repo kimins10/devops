@@ -1,0 +1,17 @@
+#!/bin/bash
+sudo yum install epel-release -y
+sudo yum update -y
+sudo yum install wget -y
+cd /tmp/
+dnf -y install centos-release-rabbitmq-38 # rabbitmq 서버 설치 및 시작
+ dnf --enablerepo=centos-rabbitmq-38 -y install rabbitmq-server
+ systemctl enable --now rabbitmq-server
+ firewall-cmd --add-port=5672/tcp
+ firewall-cmd --runtime-to-permanent
+sudo systemctl start rabbitmq-server
+sudo systemctl enable rabbitmq-server
+sudo systemctl status rabbitmq-server
+sudo sh -c 'echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config' #echo 리다이렉트( 이걸 왜하지?)
+sudo rabbitmqctl add_user test test # 사용자 추가
+sudo rabbitmqctl set_user_tags test administrator # 생성한 사용자에 관리자 권한 부가
+sudo systemctl restart rabbitmq-server # rabbit mq 서버 재시작
